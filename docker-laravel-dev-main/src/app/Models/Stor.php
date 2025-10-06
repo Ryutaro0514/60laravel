@@ -9,7 +9,7 @@ class Stor extends Model
     //
     protected $fillable=[
         "name",
-        "spot",
+        "place",
         "mail",
         "account",
         "password"

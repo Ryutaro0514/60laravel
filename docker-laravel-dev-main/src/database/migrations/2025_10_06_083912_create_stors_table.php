@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('stors', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->string("place");
+            $table->string("mail");
+            $table->string("account");
+            $table->string("password");
             $table->timestamps();
         });
     }

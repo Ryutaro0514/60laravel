@@ -4,15 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Coupon extends Model
+class Reserv extends Model
 {
     //
     protected $fillable=[
-        "stor_id",
+        "good_id",
         "couponcode",
+        "address",
         "price"
     ];
-    public function stor(){
-        return $this->belongsTo(Stor::class,"stor_id");
-    }
 }

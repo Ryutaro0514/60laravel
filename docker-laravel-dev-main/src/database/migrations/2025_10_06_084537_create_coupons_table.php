@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("stor_id");
+            $table->foreign("stor_id")->references("id")->on("stors")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string("couponcode");
+            $table->integer("price");
             $table->timestamps();
         });
     }
