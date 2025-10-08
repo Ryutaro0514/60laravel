@@ -7,6 +7,7 @@
         <input name="name" type="text" placeholder="名前">
         <input name="password" type="password" placeholder="パスワード">
         <button class="btn btn-primary">サインイン</button>
+        
         @if (session("message"))
             <div class="alert alert-danger">{{session("message")}}</div>
         @endif

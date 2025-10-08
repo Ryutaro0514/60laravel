@@ -14,13 +14,13 @@ class LoginController extends Controller
         $user=$request->only("name","password");
         if(Auth::attempt($user)){
             $request->session()->regenerate();
-            return redirect(route(""));
+            return redirect(route("good.index"));
         }
         return back()->with(["message","アカウントまたはパスワードが違います"]);
     }
     public function signout(Request $request){
         Auth::logout();
         $request->session()->flush();
-        return redirect(route("user_login"));
+        return redirect(route("user.signupCreate"));
     }
 }
