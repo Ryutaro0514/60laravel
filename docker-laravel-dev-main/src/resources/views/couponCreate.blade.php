@@ -3,12 +3,7 @@
 <a href="{{route("coupon.index")}}" class="btn btn-primary">戻る</a>
     <form action="{{route("coupon.store")}}" method="post">
         @csrf
-        <select name="stor_id" id="">
-            @foreach ($coupons as $item)
-                <option value="{{$item->id}}">{{$item->name}}</option>
-            @endforeach
-        </select>
-        <input type="text" placeholder="クーポンコード" name="name">
+        <input type="text" placeholder="クーポンコード" name="couponcode">
         <input type="number" placeholder="割引価格" name="price">
         <button class="btn btn-primary">登録</button>
     </form>

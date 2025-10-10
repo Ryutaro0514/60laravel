@@ -7,6 +7,7 @@ use App\Models\Stor;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CouponController extends Controller
 {
@@ -37,20 +38,18 @@ class CouponController extends Controller
     {
         //
         $request->validate([
-            "stor_id"=>"required",
             "couponcode"=>"required",
             "price"=>"required"
         ],[
-            "stor_id.required"=>"店舗情報がありません",
-            "couponcode.required"=>"クーポン情報がありません",
-            "price.required"=>"金額情報がありません"
+            "couponcode.required"=>"エラーが発生しました",
+            "price.required"=>"エラーが発生しました"
         ]);
         Coupon::query()->create([
-            "stor_id"=>$request->stor_id,
+            "stor_id"=>Auth::user()->id,
             "couponcode"=>$request->couponcode,
             "price"=>$request->price
         ]);
-        return redirect(route("couponCreate"))->with(["message","クーポン情報が更新されました"]);
+        return redirect(route("coupon.create"))->with(["message","クーポン情報が作成されました"]);
     }
 
     /**
@@ -68,7 +67,7 @@ class CouponController extends Controller
     {
         //
         $coupon=Coupon::find($id);
-        return view("couponEdit",compact("coupon,stors"));
+        return view("couponEdit",compact("coupon"));
     }
 
     /**
@@ -78,16 +77,15 @@ class CouponController extends Controller
     {
         //
         $request->validate([
-            "stor_id"=>"required",
             "couponcode"=>"required",
             "price"=>"required"
         ],[
-            "stor_id.required"=>"エラーが発生しました",
             "couponcode.required"=>"エラーが発生しました",
             "price.required"=>"エラーが発生しました"
         ]);
-        Coupon::query()->update([
-            "stor_id"=>$request->stor_id,
+        $CouponID=Coupon::find($id);
+        $CouponID->update([
+            "stor_id"=>Auth::user()->id,
             "couponcode"=>$request->couponcode,
             "price"=>$request->price
         ]);
@@ -102,6 +100,6 @@ class CouponController extends Controller
         //
         $event=Event::find($id);
         $event->delete();
-        return redirect(route("coupon.index"));
+        return redirect(route("coupon"));
     }
 }

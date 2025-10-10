@@ -15,7 +15,7 @@ class UserController extends Controller
     public function store(Request $request){
         $request->validate([
             "name"=>"required",
-            "passwors"=>"required"
+            "password"=>"required"
         ],[
             "name.required"=>"名前が入力されていません",
             "password.required"=>"パスワードが入力されていません"

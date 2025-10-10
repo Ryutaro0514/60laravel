@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("good_id");
             $table->foreign("good_id")->references("id")->on("goods")->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string("couponcode");
+            $table->string("couponcode")->nullable();
             $table->string("address");
             $table->integer("price");
             $table->timestamps();

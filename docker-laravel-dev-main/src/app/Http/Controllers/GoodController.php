@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Good;
 use App\Models\Stor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GoodController extends Controller
 {
@@ -35,19 +36,18 @@ class GoodController extends Controller
     {
         //
         $request->validate([
-            "stor_id"=>"required",
             "name"=>"required",
             "price"=>"required"
         ],[
-            "stor_id.required"=>"エラーが発生しました",
             "name.required"=>"エラーが発生しました",
             "price.required"=>"エラーが発生しました"
         ]);
         Good::query()->create([
-            "stor_id"=>$request->stor_id,
+            "stor_id"=>Auth::user()->id,
             "name"=>$request->name,
             "price"=>$request->price
         ]);
+        return redirect(route("good.create"))->with(["message"=>"商品情報が登録されました"]);
     }
 
     /**
@@ -74,23 +74,21 @@ class GoodController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
         $request->validate([
-            "stor_id"=>"required",
             "name"=>"required",
             "price"=>"required"
         ],[
-            "stor_id.required"=>"エラーが発生しました",
             "name.required"=>"エラーが発生しました",
             "price.required"=>"エラーが発生しました"
         ]);
         $good=Good::find($id);
-        Good::query()->update([
-            "stor_id"=>$request->stor_id,
+        $good->update([
+            "stor_id"=>Auth::user()->id,
             "name"=>$request->name,
             "price"=>$request->price
         ]);
-        return redirect(route("sgood.edit",$good))->with(["message"=>"商品情報が更新されました"]);
+        return redirect(route("good.edit",$good->id))->with(["message"=>"商品情報が更新されました"]);
     }
 
     /**
@@ -101,6 +99,6 @@ class GoodController extends Controller
         //
         $a=Good::find($id);
         $a->delete();
-        return redirect("good.index");
+        return redirect("good");
     }
 }

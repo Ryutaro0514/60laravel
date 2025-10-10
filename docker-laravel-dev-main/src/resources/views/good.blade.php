@@ -6,7 +6,6 @@
         <a href="{{ route('user.signout') }}" class="btn btn-danger">ログアウト</a>
     <table class="table">
         <tr>
-            <th>店舗名</th>
             <th>商品名</th>
             <th>税込価格</th>
             <th></th>
@@ -14,9 +13,8 @@
         </tr>
         @foreach ($goods as $item)
             <tr>
-                <td>{{ $item->stor_id }}</td>
                 <td>{{ $item->name }}</td>
-                <td>{{ $item->prise }}</td>
+                <td>{{ $item->price }}</td>
                 <td><a href="{{ route('good.edit', $item->id) }}" class="btn btn-success">編集</a></td>
                 <td>
                     <form action="{{route("good.delete",$item->id)}}" method="POST">

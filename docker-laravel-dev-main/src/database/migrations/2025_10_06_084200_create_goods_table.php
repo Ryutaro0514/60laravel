@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('goods', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("stor_id");
-            $table->foreign("stor_id")->references("id")->on("stors")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("stor_id")->references("id")->on("users")->cascadeOnDelete()->cascadeOnUpdate();
             $table->string("name");
             $table->string("price");
             $table->timestamps();

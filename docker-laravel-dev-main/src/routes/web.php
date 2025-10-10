@@ -1,15 +1,12 @@
 <?php
 
+use App\Http\Controllers\Apicontroller;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GoodController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Models\Coupon;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 Route::get('/signin',[LoginController::class,"signin"])->name("login");
@@ -21,7 +18,7 @@ Route::middleware(["auth", "cache.headers:no_store;max_age=0"])->group(function(
     Route::get("/good/create",[GoodController::class,"create"])->name("good.create");
     Route::post("/good/create",[GoodController::class,"store"])->name("good.store");
     Route::get("/good/edit/{id}",[GoodController::class,"edit"])->name("good.edit");
-    Route::post("/good/edit/{id}",[GoodController::class],"update")->name("good.update");
+    Route::post("/good/edit/{id}",[GoodController::class,"update"])->name("good.update");
     Route::delete("/good/{id}",[GoodController::class,"destroy"])->name("good.delete");
     Route::get('/signout',[LoginController::class,"signout"])->name("user.signout");
 
@@ -29,9 +26,10 @@ Route::middleware(["auth", "cache.headers:no_store;max_age=0"])->group(function(
     Route::get("/coupon/create",[CouponController::class,"create"])->name("coupon.create");
     Route::post("/coupon/create",[CouponController::class,"store"])->name("coupon.store");
     Route::get("/coupon/edit/{id}",[CouponController::class,"edit"])->name("coupon.edit");
-    Route::post("/coupon/edit/{id}",[CouponController::class],"update")->name("coupon.update");
+    Route::post("/coupon/edit/{id}",[CouponController::class,"update"])->name("coupon.update");
     Route::delete("/coupon/{id}",[CouponController::class,"destroy"])->name("coupon.delete");
 
-    
+
+
     Route::get('/signout',[LoginController::class,"signout"])->name("user.signout");
 });
